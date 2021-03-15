@@ -7,7 +7,7 @@ import theme from '../styles/theme';
 const MyApp = ({ Component, pageProps }) => (
   <>
     <Head>
-      <title>Couromoda</title>
+      <title>Breaking Bad Chars</title>
     </Head>
 
     <ThemeProvider theme={theme}>
