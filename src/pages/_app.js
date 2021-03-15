@@ -1,7 +1,20 @@
-import '../styles/globals.css';
+import Head from 'next/head';
+import { ThemeProvider } from 'styled-components';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
+import GlobalStyle from '../styles/globalStyle';
+import theme from '../styles/theme';
+
+const MyApp = ({ Component, pageProps }) => (
+  <>
+    <Head>
+      <title>Couromoda</title>
+    </Head>
+
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />
+      <GlobalStyle />
+    </ThemeProvider>
+  </>
+);
 
 export default MyApp;
