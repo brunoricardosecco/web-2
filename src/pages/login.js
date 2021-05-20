@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { useAuth } from '../hooks/auth';
 
 import { Container, Input } from '../styles/pages/login';
 
-function Login({ characters }) {
-  const [charactersList, setCharactersList] = useState(characters);
+function Login() {
   const [inputWithError, setInputWithError] = useState(false);
   const [inputs, setInputs] = useState({ email: '', password: '' });
   const { authenticate, isLoading } = useAuth();
+  const router = useRouter();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -17,8 +18,6 @@ function Login({ characters }) {
       setInputWithError(true);
       return;
     }
-
-    console.log({ inputs });
     authenticate(inputs);
   };
 
@@ -56,6 +55,9 @@ function Login({ characters }) {
           }}
         />
         <button type="submit">{!isLoading ? 'Login' : 'Loading...'}</button>
+        <button type="button" onClick={() => router.push('/register')}>
+          SignUp
+        </button>
       </form>
     </Container>
   );

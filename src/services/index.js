@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const baseURL = 'http://localhost:3333';
+export const photoURL = `${baseURL}/public/uploads/`;
+
 const api = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL,
 });
 
 api.interceptors.request.use((config) => {

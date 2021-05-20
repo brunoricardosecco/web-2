@@ -1,7 +1,7 @@
 import api from './index';
 
-export const getAllCharacters = ({ characterName = '' } = '') =>
+export const getAllCharacters = ({ name }) =>
   api.request({
     method: 'GET',
-    url: `/character`,
+    url: `/character?name=${name}`,
   });

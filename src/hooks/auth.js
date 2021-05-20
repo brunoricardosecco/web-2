@@ -1,8 +1,12 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import { authenticate as authenticateRequest } from '../services/authentication';
+import {
+  authenticate as authenticateRequest,
+  register as registerRequest,
+} from '../services/authentication';
+import { getUserData } from '../services/user';
 
 const AuthContext = createContext({});
 
@@ -36,6 +40,36 @@ function AuthProvider({ children }) {
     router.push('/login');
   };
 
+  const register = async (userData) => {
+    try {
+      setIsLoading(true);
+      await registerRequest(userData);
+
+      toast.success('Account created, you can login');
+      router.push('/login');
+    } catch (error) {
+      toast.warn(error.response?.data?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const verifySession = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        const { data } = await getUserData();
+        setUser(data.user);
+        router.push('/characters');
+      } else {
+        router.push('/login');
+      }
+    } catch (error) {
+      toast.warn('Please, confirm your credential again');
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -43,6 +77,8 @@ function AuthProvider({ children }) {
         authenticate,
         isLoading,
         logout,
+        verifySession,
+        register,
       }}
     >
       {children}
