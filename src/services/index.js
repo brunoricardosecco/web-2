@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3333';
+const baseURL = 'https://web2-postgres.herokuapp.com';
 export const photoURL = `${baseURL}/public/uploads/`;
 
 const api = axios.create({
