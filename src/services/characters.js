@@ -5,3 +5,10 @@ export const getAllCharacters = ({ name }) =>
     method: 'GET',
     url: `/character?name=${name}`,
   });
+
+export const createCharacter = (data) =>
+  api.request({
+    method: 'POST',
+    url: `/character`,
+    data,
+  });

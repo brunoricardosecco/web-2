@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { useAuth } from '../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 
-import { photoURL } from '../services';
-import { getAllCharacters } from '../services/characters';
-import { CardContainer, Container, Input } from '../styles/pages/home';
+import { photoURL } from '../../services';
+import { getAllCharacters } from '../../services/characters';
+import { CardContainer, Container, Input } from '../../styles/pages/home';
 
 function Characters() {
   const [charactersList, setCharactersList] = useState([]);
   const [inputText, setInputText] = useState('');
   const [inputWithError, setInputWithError] = useState(false);
-  const { user } = useAuth();
   const router = useRouter();
+  const { user, logout } = useAuth();
 
   const findCharacters = async () => {
     try {
@@ -41,7 +41,8 @@ function Characters() {
   };
 
   useEffect(() => {
-    if (Object.keys(user).length === 0) {
+    const token = localStorage.getItem('token');
+    if (!token) {
       router.push('/login');
       return;
     }
@@ -50,6 +51,18 @@ function Characters() {
 
   return (
     <Container>
+      <h1>Welcome, {user.name}</h1>
+      <button type="button" onClick={logout}>
+        Logout
+      </button>
+      {user.is_admin && (
+        <button
+          type="button"
+          onClick={() => router.push('/characters/register')}
+        >
+          Add a character
+        </button>
+      )}
       <form onSubmit={onSubmit}>
         <Input
           inputWithError={inputWithError}
@@ -74,7 +87,6 @@ function Characters() {
 function CharacterCard({ character }) {
   return (
     <CardContainer>
-      {console.log(photoURL + character.photo)}
       <img
         alt={character.name}
         src={photoURL + character.photo}

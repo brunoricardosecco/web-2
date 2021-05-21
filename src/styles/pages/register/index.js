@@ -36,6 +36,12 @@ export const Container = styled.div`
       border-radius: 10px;
       margin-bottom: 10px;
     }
+
+    button:nth-of-type(1) {
+      background-color: ${(props) =>
+        props.haveFile ? 'green' : props.theme.colors.primary};
+      color: ${(props) => (props.haveFile ? '#FFF' : '#000')};
+    }
   }
 `;
 

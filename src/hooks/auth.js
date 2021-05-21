@@ -67,6 +67,7 @@ function AuthProvider({ children }) {
       }
     } catch (error) {
       toast.warn('Please, confirm your credential again');
+      router.push('/login');
     }
   };
 

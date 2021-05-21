@@ -19,6 +19,26 @@ export const Container = styled.div`
     justify-content: center;
     display: flex;
   }
+
+  button {
+    background-color: ${(props) => props.theme.colors.primary};
+    padding: 10px;
+    border: 0;
+    font-size: 1.5vw;
+    border-radius: 10px;
+    color: #000;
+  }
+
+  button:nth-of-type(1) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  button:nth-of-type(2) {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
 `;
 
 export const Input = styled.input`
